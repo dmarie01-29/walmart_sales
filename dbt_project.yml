@@ -10,7 +10,7 @@ config-version: 2
 profile: 'default'
 
 vars:
-   wrk_schema: BRONZE
+   wrk_schema: PUBLIC
    file_format: WMT_DB.PUBLIC.WMT_CSV_FORMAT
    purge_status: FALSE
    stage_name: WMT_DB.PUBLIC.WMT_STAGE

@@ -1,0 +1,7 @@
+version: 2
+sources:
+    - name: source
+      database: WMT_DB
+      schema: PUBLIC
+      tables:
+        - name: DEPARTMENT
