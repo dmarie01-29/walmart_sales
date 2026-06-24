@@ -1,0 +1,30 @@
+{{ config({ "materialized":'table',
+ "transient":true,
+ "alias":'walmart_fact_table',
+ "pre_hook": macros_copy_csv('FACT'),
+ "schema": 'SILVER'
+})}}
+
+WITH transform_facts AS(
+SELECT
+    STORE AS STORE
+    , DATE AS STORE_DATE
+    , TEMPERATURE AS TEMPERATURE
+    , FUEL_PRICE AS FUEL_PRICE
+    , MARKDOWN1 AS MARKDOWN1
+    , MARKDOWN2 AS MARKDOWN2
+    , MARKDOWN3 AS MARKDOWN3
+    , MARKDOWN4 AS MARKDOWN4
+    , MARKDOWN5 AS MARKDOWN5
+    , CPI AS CPI
+    , UNEMPLOYMENT AS UNEMPLOYMENT
+    , ISHOLIDAY AS ISHOLIDAY
+    , INSERT_DTS AS INSERT_DTS
+    , UPDATE_DTS AS UPDATE_DTS
+    , SOURCE_FILE_NAME AS SOURCE_FILE_NAME
+    , SOURCE_FILE_ROW_NUMBER AS SOURCE_FILE_ROW_NUMBER
+FROM {{source('source2','FACT')}}
+)
+
+SELECT *
+FROM transform_facts
