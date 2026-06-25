@@ -1,25 +1,9 @@
 version: 2
 sources:
-    - name: source1
-      database: WMT_DB
-      schema: PUBLIC
-      tables:
-        - name: DEPARTMENT
-
-    - name: source2
-      database: WMT_DB
-      schema: PUBLIC
-      tables:
-        - name: FACT
-
-    - name: source3
-      database: WMT_DB
-      schema: PUBLIC
-      tables:
-        - name: STORES
-
-    - name: transform
-      database: WMT_DB
-      schema: PUBLIC
-      tables:
-        - name: FACT
+  - name: wmt_raw_landing
+    database: WMT_DB
+    schema: PUBLIC
+    tables:
+      - name: DEPARTMENT
+      - name: FACT
+      - name: STORES

@@ -1,30 +1,29 @@
-{{ config({ "materialized":'table',
- "transient":true,
- "alias":'walmart_fact_table',
- "pre_hook": macros_copy_csv('FACT'),
- "schema": 'SILVER'
-})}}
+{{ config(
+    materialized='table',
+    transient=true,
+    pre_hook=macros_copy_csv('FACT')
+) }}
 
-WITH transform_facts AS(
-SELECT
-    STORE AS STORE
-    , DATE AS STORE_DATE
-    , TEMPERATURE AS TEMPERATURE
-    , FUEL_PRICE AS FUEL_PRICE
-    , MARKDOWN1 AS MARKDOWN1
-    , MARKDOWN2 AS MARKDOWN2
-    , MARKDOWN3 AS MARKDOWN3
-    , MARKDOWN4 AS MARKDOWN4
-    , MARKDOWN5 AS MARKDOWN5
-    , CPI AS CPI
-    , UNEMPLOYMENT AS UNEMPLOYMENT
-    , ISHOLIDAY AS ISHOLIDAY
-    , INSERT_DTS AS INSERT_DTS
-    , UPDATE_DTS AS UPDATE_DTS
-    , SOURCE_FILE_NAME AS SOURCE_FILE_NAME
-    , SOURCE_FILE_ROW_NUMBER AS SOURCE_FILE_ROW_NUMBER
-FROM {{source('source2','FACT')}}
+with raw_facts as(
+select
+    store
+    ,date
+    ,temperature
+    ,fuel_price
+    ,markdown1
+    ,markdown2
+    ,markdown3
+    ,markdown4
+    ,markdown5
+    ,cpi
+    ,unemployment
+    ,isholiday
+    ,insert_dts 
+    ,update_dts 
+    ,source_file_name 
+    ,source_file_row_number 
+from {{source('wmt_raw_landing','FACT')}}
 )
 
-SELECT *
-FROM transform_facts
+select *
+from raw_facts

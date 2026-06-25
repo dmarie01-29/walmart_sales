@@ -1,29 +1,21 @@
-{{ config({ "materialized":'table',
- "transient":true,
- "alias":'walmart_date_dim',
- "pre_hook": macros_copy_csv('DEPARTMENT'),
- "schema": 'SILVER'
-})}}
+{{ config(
+    materialized='table',
+    transient=true,
+    pre_hook=macros_copy_csv('DEPARTMENT')
+) }}
 
-WITH transform_dept AS(
-SELECT
-    STORE AS STORE
-    , DEPT AS DEPT
-    , DATE	AS DATE
-    , WEEKLY_SALES AS WEEKLY_SALES
-    , ISHOLIDAY AS ISHOLIDAY
-    , INSERT_DTS AS INSERT_DTS
-    , UPDATE_DTS AS UPDATE_DTS
-    , SOURCE_FILE_NAME AS SOURCE_FILE_NAME
-    , SOURCE_FILE_ROW_NUMBER AS SOURCE_FILE_ROW_NUMBER
-FROM {{source('source1','DEPARTMENT')}}
+with raw_dept as (
+    select 
+        store 
+        ,dept 
+        ,date 
+        ,weekly_sales 
+        ,isholiday 
+        ,insert_dts 
+        ,update_dts 
+        ,source_file_name 
+        ,source_file_row_number 
+    from {{ source('wmt_raw_landing', 'DEPARTMENT') }}
 )
 
-SELECT *
-FROM transform_dept
-
-    -- ROW_NUMBER() OVER (
-    --     PARTITION BY DEPT, STORE_DATE 
-    --     ORDER BY STORE_DATE ASC ) 
-    --     AS DATE_ID
-
+select * from raw_dept

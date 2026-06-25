@@ -1,21 +1,26 @@
-{{ config({ "materialized":'table',
- "transient":true,
- "alias":'walmart_stores_dim',
- "pre_hook": macros_copy_csv('STORES'),
- "schema": 'SILVER'
-})}}
+{{ config(
+    materialized='table',
+    transient=true,
+    pre_hook=macros_copy_csv('STORES')
+) }}
 
-WITH transform_stores AS(
+WITH raw_stores AS(
 SELECT
-    STORE AS STORE
-    , TYPE AS STORE_TYPE
-    , SIZE AS STORE_SIZE
-    , INSERT_DTS AS INSERT_DTS
-    , UPDATE_DTS AS UPDATE_DTS
-    , SOURCE_FILE_NAME AS SOURCE_FILE_NAME
-    , SOURCE_FILE_ROW_NUMBER AS SOURCE_FILE_ROW_NUMBER
-FROM {{source('source3','STORES')}}
+    store
+    ,type
+    ,size
+    ,insert_dts 
+    ,update_dts 
+    ,source_file_name 
+    ,source_file_row_number 
+FROM {{source('wmt_raw_landing','STORES')}}
 )
 
 SELECT *
-FROM transform_stores
+FROM raw_stores
+
+-- config({ "materialized":'table',
+--  "transient":true,
+--  "alias":'walmart_stores_dim',
+--  "pre_hook": macros_copy_csv('STORES'),
+--  "schema": 'SILVER'
