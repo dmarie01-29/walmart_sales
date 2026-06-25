@@ -45,10 +45,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   wmt_project:
-    bronze:          # This matches your subfolder name inside /models/
-      +database: WMT_DB
-      +schema: BRONZE
-      +materialized: table
     silver: 
       +database: WMT_DB
       +schema: SILVER
