@@ -23,10 +23,7 @@ with fact_view as(
         , version_startdate
     from {{ ref('transform_wmt_fact_table') }} 
 
-    where current_date() is between version_startdate and version_enddate
-
-    
-
-
-
+    where current_date() between version_startdate and version_enddate
 )
+
+select * from fact_view
