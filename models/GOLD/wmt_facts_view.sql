@@ -7,9 +7,10 @@
 with fact_view as(
     select
         store_id
-        , dept_id
-        , date_id 
+        , dept_id        
         , store_size 
+        , date_id 
+        , store_date
         , weekly_sales
         , fuel_price
         , temperature

@@ -8,6 +8,7 @@ with fact_table as (
         d.store as store_id
         , d.dept as dept_id
         , s.size as store_size
+        , d.date as store_date
         , d.isholiday as isholiday
         , d.weekly_sales as weekly_sales
         , f.fuel_price as fuel_price
