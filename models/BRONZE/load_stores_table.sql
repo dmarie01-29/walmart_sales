@@ -19,8 +19,4 @@ FROM {{source('wmt_raw_landing','STORES')}}
 SELECT *
 FROM raw_stores
 
--- config({ "materialized":'table',
---  "transient":true,
---  "alias":'walmart_stores_dim',
---  "pre_hook": macros_copy_csv('STORES'),
---  "schema": 'SILVER'
+

@@ -11,6 +11,7 @@ with fact_view as(
         , store_size 
         , date_id 
         , store_date
+        , isholiday
         , weekly_sales
         , fuel_price
         , temperature
